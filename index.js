@@ -14,7 +14,7 @@ module.exports = function(html, base) {
     dom('link').each(function(idx, el) {
       el = dom(el)
       var href = el.attr('href')
-      if (el.attr('rel') === 'stylesheet' && isLocal(href)) {
+      if (el.attr('rel') === 'stylesheet' && isLocal(href) && !isNoscript(el.parent())) {
         var dir = path.dirname(href)
         var file = path.join(base, href)
         var style = fs.readFileSync(file)
@@ -26,7 +26,11 @@ module.exports = function(html, base) {
   }
   
   function isLocal(href) {
-    return href && !url.parse(href).hostname;
+    return href && !url.parse(href).hostname
+  }
+
+  function isNoscript(el) {
+    return el && el.get(0) && el.get(0).tagName === "noscript"
   }
   
 }
