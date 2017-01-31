@@ -1,7 +1,12 @@
-# inline-styles
+# style-in
 
-Replaces link tags with inline style tags relative to the HTML file.
-Ignores noscript content.
+Replaces link tags with inline style tags
+
+It's a fork of [inline-styles](https://github.com/maxogden/inline-styles)with the following changes:
+- no data URIs inlining
+- ignoring noscript embeds
+- styles are resolved relatively to HTML file location, not the command execution dir
+
 
 ```
 npm install style-in
