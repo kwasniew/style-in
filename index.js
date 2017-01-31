@@ -15,10 +15,12 @@ module.exports = function (fileName) {
     function injectStyles(dom) {
         dom("link").each(function (idx, el) {
             el = dom(el);
-            var href = el.attr("href");
+            var href = url.parse(el.attr("href")).pathname;
+
+
             if (el.attr("rel") === "stylesheet" && isLocal(href) && !isNoscript(el.parent())) {
-                var dir = path.dirname(href);
                 var file = path.join(base, href);
+
                 var style = fs.readFileSync(file);
                 var inlinedTag = "<style>" + style.toString() + "</style>";
                 el.replaceWith(inlinedTag);
