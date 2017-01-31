@@ -1,16 +1,15 @@
 {
-  "name": "inline-styles",
+  "name": "style-in",
   "version": "1.0.0",
-  "description": "replaces link tags with inline style tags + inlines CSS url() calls with data URIs",
+  "description": "replaces link tags with inline style tags",
   "main": "index.js",
   "bin": {
-    "inline-styles": "cli.js"
+    "style-in": "cli.js"
   },
-  "author": "max ogden",
+  "author": "Mateusz Kwasniewski",
   "license": "BSD",
   "dependencies": {
-    "cheerio": "git://github.com/cheeriojs/cheerio",
-    "imageinliner": "^0.2.2"
+    "cheerio": "0.22.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -18,10 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maxogden/inline-styles.git"
+    "url": "https://github.com/kwasniew/style-in.git"
   },
   "bugs": {
-    "url": "https://github.com/maxogden/inline-styles/issues"
+    "url": "https://github.com/kwasniew/style-in/issues"
   },
-  "homepage": "https://github.com/maxogden/inline-styles"
+  "homepage": "https://github.com/kwasniew/style-in"
 }

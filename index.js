@@ -1,36 +1,37 @@
-var cheerio = require('cheerio')
-var path = require('path')
-var fs = require('fs')
-var url = require('url')
-var inliner = require('imageinliner')
+var cheerio = require("cheerio");
+var path = require("path");
+var fs = require("fs");
+var url = require("url");
 
-module.exports = function(html, base) {
-  base = base || process.cwd()
-  var dom = cheerio.load(String(html))
-  injectStyles(dom)
-  return new Buffer(dom.html())
-  
-  function injectStyles(dom) {
-    dom('link').each(function(idx, el) {
-      el = dom(el)
-      var href = el.attr('href')
-      if (el.attr('rel') === 'stylesheet' && isLocal(href) && !isNoscript(el.parent())) {
-        var dir = path.dirname(href)
-        var file = path.join(base, href)
-        var style = fs.readFileSync(file)
-        var inlined = inliner.css(style.toString(), { cssBasePath: dir })
-        var inlinedTag = "<style>\n" + inlined.toString() + '\n</style>'
-        el.replaceWith(inlinedTag)
-      }
-    })
-  }
-  
-  function isLocal(href) {
-    return href && !url.parse(href).hostname
-  }
+module.exports = function (fileName) {
+    var html = fs.readFileSync(fileName);
+    var fullPath = fs.realpathSync(fileName);
+    var base = fullPath.substr(0, fullPath.lastIndexOf("/"));
 
-  function isNoscript(el) {
-    return el && el.get(0) && el.get(0).tagName === "noscript"
-  }
-  
-}
+    var dom = cheerio.load(String(html));
+    injectStyles(dom);
+    return new Buffer(dom.html());
+
+    function injectStyles(dom) {
+        dom("link").each(function (idx, el) {
+            el = dom(el);
+            var href = el.attr("href");
+            if (el.attr("rel") === "stylesheet" && isLocal(href) && !isNoscript(el.parent())) {
+                var dir = path.dirname(href);
+                var file = path.join(base, href);
+                var style = fs.readFileSync(file);
+                var inlinedTag = "<style>" + style.toString() + "</style>";
+                el.replaceWith(inlinedTag);
+            }
+        });
+    }
+
+    function isLocal(href) {
+        return href && !url.parse(href).hostname;
+    }
+
+    function isNoscript(el) {
+        return el && el.get(0) && el.get(0).tagName === "noscript";
+    }
+
+};

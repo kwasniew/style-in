@@ -1,8 +1,9 @@
 # inline-styles
 
-replaces link tags with inline style tags + inlines CSS url() calls with data URIs
+Replaces link tags with inline style tags relative to the HTML file.
+Ignores noscript content.
 
 ```
-npm install inline-styles -g
-inline-styles index.html > inlined.html
+npm install style-in
+style-in example/index.html > example/index.after.html
 ```
