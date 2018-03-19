@@ -4,7 +4,6 @@ var fs = require("fs");
 var url = require("url");
 
 module.exports = function (argv) {
-    console.log(argv);
     var fileName = argv["_"][0];
     var html = fs.readFileSync(fileName);
 

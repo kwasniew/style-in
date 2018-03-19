@@ -1,6 +1,6 @@
 {
   "name": "style-in",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "replaces link tags with inline style tags",
   "main": "index.js",
   "bin": {
