@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+var argv = require('minimist')(process.argv.slice(2));
 var inliner = require('./');
-var inlined = inliner(process.argv[2]).toString();
+var inlined = inliner(argv).toString();
 console.log(inlined);

@@ -3,10 +3,12 @@ var path = require("path");
 var fs = require("fs");
 var url = require("url");
 
-module.exports = function (fileName) {
+module.exports = function (argv) {
+    console.log(argv);
+    var fileName = argv["_"][0];
     var html = fs.readFileSync(fileName);
-    var fullPath = fs.realpathSync(fileName);
-    var base = fullPath.substr(0, fullPath.lastIndexOf("/"));
+
+    var base = argv["base"] || currentFileDir(fileName);
 
     var dom = cheerio.load(String(html));
     injectStyles(dom);
@@ -26,6 +28,12 @@ module.exports = function (fileName) {
                 el.replaceWith(inlinedTag);
             }
         });
+    }
+
+    function currentFileDir(fileName) {
+        var fullPath = fs.realpathSync(fileName);
+        var base = fullPath.substr(0, fullPath.lastIndexOf("/"));
+        return base;
     }
 
     function isLocal(href) {
